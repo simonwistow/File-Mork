@@ -1,0 +1,8 @@
+03 May 2005 - v0.2 Testing
+
+  Add reference to Mozilla::Backup
+  Add tests
+
+28 Apr 2005 - v0.1 Initial Release
+
+    Based on jwz's mork.pl code

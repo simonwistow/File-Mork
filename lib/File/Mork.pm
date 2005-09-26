@@ -4,7 +4,7 @@ use strict;
 use vars qw($VERSION $ERROR);
 use POSIX qw(strftime);
 
-$VERSION = "0.1";
+$VERSION = "0.2";
 
 =head1 NAME
 
@@ -26,7 +26,11 @@ File::Mork - a module to read Mozilla URL history files
 
 This is a module that can read the Mozilla URL history file -- normally
 $HOME/.mozilla/default/*.slt/history.dat -- and extract the id, url,
-name, hostname, first visted dat, last visited date and vistit count.
+name, hostname, first visted dat, last visited date and visit count.
+
+To find your history file it might be worth using B<Mozilla::Backup>
+which has some platform-independent code for finding the profiles of
+various Mozilla-isms (including Firefox, Camino, K-Meleon, etc.). 
 
 =cut
 
@@ -62,6 +66,7 @@ sub new {
     my ($class, $file, %opts) = @_;
     my $self = bless \%opts, $class;
 
+	$self->{verbose} ||= 0;
 
     unless ($self->parse($file)) {
         $ERROR = $self->{error};
@@ -389,6 +394,7 @@ than the the current verbosity level.
 
 sub debug {
     my ($self, $message, $level) = @_;
+	$level ||= 0;
     return if $self->{verbose} < $level;
     print STDERR "".(($message eq "")? "\n" : $self->{file}.": $message\n" );
 }

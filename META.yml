@@ -1,6 +1,6 @@
 --- #YAML:1.0
 name: File-Mork
-version: 0.1
+version: 0.2
 author:
   - Module-ised by Simon Wistow <simon@thegestalt.org>
   - based on
@@ -15,8 +15,8 @@ dynamic_config: 1
 provides:
   File::Mork:
     file: lib/File/Mork.pm
-    version: 0.1
+    version: 0.2
   File::Mork::Entry:
     file: lib/File/Mork.pm
-    version: 0.1
+    version: 0.2
 generated_by: Module::Build version 0.25
