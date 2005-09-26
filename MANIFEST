@@ -1,0 +1,9 @@
+bin/mork
+examples/history.dat
+lib/File/Mork.pm
+MANIFEST			This list of files
+MANIFEST.SKIP
+META.yml
+t/01use.t
+Build.PL
+Makefile.PL
