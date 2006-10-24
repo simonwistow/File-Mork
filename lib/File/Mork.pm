@@ -3,8 +3,9 @@ package File::Mork;
 use strict;
 use vars qw($VERSION $ERROR);
 use POSIX qw(strftime);
+use Encode;
 
-$VERSION = "0.2";
+$VERSION = "0.3";
 
 =head1 NAME
 
@@ -331,12 +332,24 @@ sub parse_value_table {
               next;
         }
 
+        # recognize the byte order of UTF-16 encoding
+        if (! defined ($self->{byte_order}) && $val =~ m/(?:BE|LE)/) {
+            $self->{byte_order} = $val;
+        }
+
         # Assume that URLs and LastVisited are never hexilated; so
         # don't bother unhexilating if we won't be using Name, etc.
         if($val =~ m/\$/) {
-              # Approximate wchar_t -> ASCII and remove NULs
-              $val =~ s/\$00//g;  # faster if we remove these first
-              $val =~ s/\$([\dA-F]{2})/chr(hex($1))/ge;
+            if ( defined $self->{byte_order} ) {
+                my $encoding = 'UTF-16' . $self->{byte_order};
+                $val =~ s/\$([\dA-F]{2})/chr(hex($1))/ge;
+                $val = encode_utf8(decode($encoding, $val));
+            }
+            else {
+                # Approximate wchar_t -> ASCII and remove NULs
+                $val =~ s/\$00//g;  # faster if we remove these first
+                $val =~ s/\$([\dA-F]{2})/chr(hex($1))/ge;
+            }
         }
 
         $self->{val_table}->{$key} = $val;
