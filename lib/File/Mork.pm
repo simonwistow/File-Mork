@@ -13,7 +13,7 @@ File::Mork - a module to read Mozilla URL history files
 
 =head1 SYNOPSIS
 
-    my $mork = File::Mork->new($filename, verbose => 1) 
+    my $mork = File::Mork->new($filename, verbose => 1)
         || die $File::Mork::ERROR."\n";
 
 
@@ -31,7 +31,7 @@ name, hostname, first visted dat, last visited date and visit count.
 
 To find your history file it might be worth using B<Mozilla::Backup>
 which has some platform-independent code for finding the profiles of
-various Mozilla-isms (including Firefox, Camino, K-Meleon, etc.). 
+various Mozilla-isms (including Firefox, Camino, K-Meleon, etc.).
 
 =cut
 
@@ -47,15 +47,15 @@ Takes an optional hash of options
 
 =over 4
 
-=item 
+=item
 
 verbose
 
 A value up to 3 - defines the level of verbosity
 
-=item 
+=item
 
-age 
+age
 
 A ctime which forces C<File::Mork> to only parse entries later than this.
 
@@ -120,7 +120,7 @@ Internal method to parse the file. Obviously.
 sub parse {
     my ($self, $file) = @_;
 
-    $self->{since}   = ($self->{age} ? time() - $self->{age} : 0);    
+    $self->{since}   = ($self->{age} ? time() - $self->{age} : 0);
     $self->{section} = "top level";
     $self->{section_end_re} = undef;
 
@@ -140,7 +140,7 @@ sub parse {
     unless (open (IN, $file)) {
         $self->{error} = "Couldn't open $file : $!";
         return;
-    }    
+    }
 
     $self->debug("reading ...",1);
     my $body = <IN>;
@@ -273,7 +273,7 @@ sub parse_table {
               my ($keyi, $which, $vali) =
                 m/^\^ ([-\dA-F]+)
                   ([\^=])
-                  (.*)     
+                  (.*)
                   $/xi;
 
               return $self->error("unparsable cell: $_\n") unless defined ($vali);
@@ -400,7 +400,7 @@ sub error {
 
 =head2 debug <message> <priority>
 
-Internal method to print out a debug message if it's a higher priority 
+Internal method to print out a debug message if it's a higher priority
 than the the current verbosity level.
 
 =cut
@@ -435,10 +435,10 @@ In brief, let's count its sins:
 =over 4
 
 =item
- 
+
 Two different numerical namespaces that overlap.
 
-=item 
+=item
 
 It can't decide what kind of character-quoting syntax to use:
 Backslash?  Hex encoding with dollar-sign?
@@ -448,7 +448,7 @@ Backslash?  Hex encoding with dollar-sign?
 C++ line comments are allowed sometimes, but sometimes // is just a
 pair of characters in a URL.
 
-=item 
+=item
 
 It goes to all this serious compression effort (two different
 string-interning hash tables) and then writes out Unicode strings
@@ -478,7 +478,7 @@ Pure comedy.
 
 Module-ised by Simon Wistow <simon@thegestalt.org>
 
-based on 
+based on
 
     http://www.jwz.org/hacks/mork.pl
 
@@ -496,7 +496,7 @@ documentation for any purpose is hereby granted without fee, provided that
 the above copyright notice appear in all copies and that both that
 copyright notice and this permission notice appear in supporting
 documentation.  No representations are made about the suitability of this
-software for any purpose.  It is provided "as is" without express or 
+software for any purpose.  It is provided "as is" without express or
 implied warranty.
 
 =head1 BUGS
@@ -518,7 +518,7 @@ package File::Mork::Entry;
 use strict;
 use vars qw($AUTOLOAD);
 
-=head1 NAME 
+=head1 NAME
 
 File::Mork::Entry - an single entry in a mork DB
 
@@ -530,7 +530,7 @@ All methods except C<new> take an optional argument to set them.
 
 blesses C<%opts> into the class File::Mork::Entry
 
-=cut 
+=cut
 
 sub new {
     my ($class, %self) = @_;
