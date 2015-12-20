@@ -333,7 +333,7 @@ sub parse_value_table {
         }
 
         # recognize the byte order of UTF-16 encoding
-        if (! defined ($self->{byte_order}) && $val =~ m/(?:BE|LE)/) {
+        if (! defined ($self->{byte_order}) && $val =~ m/(?:BE|LE)$/) {
             $self->{byte_order} = $val;
         }
 
