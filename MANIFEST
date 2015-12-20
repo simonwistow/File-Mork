@@ -10,3 +10,4 @@ t/02simple.t
 t/03error.t 
 Build.PL
 Makefile.PL
+META.json

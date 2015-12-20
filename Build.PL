@@ -6,6 +6,7 @@ my $build = Module::Build->new(
     license            => "gpl",
     scripts            => [ 'bin/mork' ],
     create_makefile_pl => 'traditional',
+    configure_requires => { 'Module::Build' => 0.40 },
     dynamic_config     => 1, 
 	requires           => {
                             'Test::More'     => 0,
